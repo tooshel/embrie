@@ -11,7 +11,7 @@ title: Adventure Map
 
 <table id="cm_mapTABLE" border="0">
 <tbody>
-<tr id="cm_mapTR"><td valign="top"><div id="cm_map" style="width:410px; height:400px"></div></td></tr>
+<tr id="cm_mapTR"><td valign="top"><div id="cm_map" style="width:420px; height:400px"></div></td></tr>
 </tbody>
 </table>
 
@@ -42,6 +42,9 @@ var param_rankColumn = "locationid";
 var param_iconType = "pink";
 var param_iconOverType = "orange";
 
+var param_center_Latlng = new google.maps.LatLng(31.093235, -91.72485);
+var param_center_zoom = 3;
+
 /*
 var param_ssKey = "o16162288751915453340.4402783830945175750";
 var param_useSidebar = true;
@@ -58,31 +61,27 @@ var param_iconOverType = "orange";
  * Loads map and calls function to load in worksheet data.
  */
 function cm_load() {  
-  var myLatlng = new google.maps.LatLng(36.46797505,-113.09313139999999);
   var myOptions = {
-    zoom: 15,
-    center: myLatlng,
+    zoom: param_center_zoom,
+    center: param_center_Latlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
   cm_map = new google.maps.Map(document.getElementById("cm_map"), myOptions);
-
   cm_getJSON();
-
-
-
-
-  
 }
 
 
-function cm_ViewAll() {  
-	  var myLatlng = new google.maps.LatLng(36.46797505,-113.09313139999999);
-	  cm_map.setCenter(myLatlng);
-	  cm_map.setZoom(15);
-	  if (cm_openInfowindow != undefined) {
-		    cm_openInfowindow.close();
-	  }
-	}
+function cm_ViewAll() {
+  console.log(cm_map.getCenter());
+  console.log(cm_map.getZoom());
+  cm_map.setCenter(param_center_Latlng);
+  cm_map.setZoom(param_center_zoom);
+  if (cm_openInfowindow != undefined) {
+    cm_openInfowindow.close();
+  }
+  console.log(param_center_zoom);
+  console.log(param_center_Latlng);
+}
 
 /**
  * Function called when marker on the map is clicked.
@@ -160,7 +159,10 @@ function cm_loadMapJSON(json) {
         rank = parseInt(entry["gsx$"+param_rankColumn].$t);
       }
       if(entry["gsx$" + param_descriptionColumn]) {
-        html += "" + entry["gsx$"+param_descriptionColumn].$t;
+      	//var desc = entry["gsx$"+param_descriptionColumn].$t.replace(/["']/g, "\'");
+      	var desc = entry["gsx$"+param_descriptionColumn].$t;
+
+        html += "<div style='max-width:270px;' " + desc + "</div>";
       }
       html += "</div>";
 
