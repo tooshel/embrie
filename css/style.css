@@ -23,7 +23,7 @@ body {
 	text-align:center;
 }
 	
-h1, h2 {
+h1, h2, h5 {
 	font-family:Ballpark;
 	font-weight: 100;
 	text-align:center;
@@ -45,6 +45,15 @@ h3 {
 	margin:0 0 20px 0;
 	font-size: 20px;
 	
+}
+
+h5 {
+	font-family:san-serif;
+	padding:0 0 0 20px;
+	margin:0 0 0 20px;
+	font-size: 18px;
+	text-align:left;
+	font-weight: 900;
 }
 
 p {
